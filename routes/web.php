@@ -14,3 +14,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/showtables',['uses'=>'SchemaWebsocketController@showTables']);
+$router->get('/describe_table/{table}',['uses'=>'SchemaWebsocketController@describeTable']);
+$router->get('/show_data/{table}',['uses'=>'SchemaWebsocketController@dataTable']);
+
+$router->get('/chat/{message}',['uses'=>'WebSocketController@getMessage']);
+
+
+
+
