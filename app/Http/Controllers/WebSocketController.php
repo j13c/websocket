@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Request;
 use App\History;
+use App\Events\Event;
+use App\Events\ExampleEvent;
 
 
 class WebSocketController extends Controller
@@ -28,6 +30,10 @@ class WebSocketController extends Controller
                 $history->datetime = $date;
                 $history->message = $message;
                 $history->save();
+
+                // Disparo el evento
+                Event::fire(new ExampleEvent($history));
+                event(new ExampleEvent($history));
                 
                 return response()->json($history);
                 

@@ -6,8 +6,11 @@ use App\Events\ExampleEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ExampleListener
+class ExampleListener implements ShouldQueue
 {
+    //accediendo manualmente a la cola
+    use InteractsWithQueue;
+
     /**
      * Create the event listener.
      *
@@ -26,6 +29,9 @@ class ExampleListener
      */
     public function handle(ExampleEvent $event)
     {
-        //
+        if($event){
+            $this->release(30);   
+        }
+        $event->message;
     }
 }
